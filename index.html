@@ -36,7 +36,7 @@ function getQueryVariable(variable)
 var subredditname = getQueryVariable('sub');
 var pfosten = " ";
 
-$.getJSON("http://www.reddit.com/r/"+subredditname+"/.json?limit=100", function(data) { 
+$.getJSON("https://www.reddit.com/r/"+subredditname+"/.json?limit=100", function(data) { 
     $.each(data.data.children, function(i,item){
       var converter = new showdown.Converter(),
     text      = (item.data.selftext),
