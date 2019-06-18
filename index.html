@@ -42,7 +42,7 @@ $.getJSON("https://www.reddit.com/r/"+subredditname+"/.json?limit=100", function
     text      = (item.data.selftext),
     reddetex      = converter.makeHtml(text);
         var link = (item.data.permalink);
-          pfosten += ("<div class=\"posts\"><p><i>Posted in "+item.data.subreddit_name_prefixed+" by u/"+item.data.author+" ("+item.data.distinguished+")</i> "+item.data.author_flair_text+" </p><p><b>"+item.data.title+"</b> <p><a href=\"https://www.reddit.com"+link+"\">reddit.com"+item.data.permalink+"</a></p> </p><a href="+item.data.url+"><img src="+item.data.url+"><video src="+item.data.url+"></a> <div>"+reddetex+"</div></div><br><br><br><br>");
+          pfosten += ("<div class=\"posts\"><p><i>Posted in "+item.data.subreddit_name_prefixed+" by u/"+item.data.author+" ("+item.data.distinguished+")</i></p><p> <img src=\"item.data.author_flair_richtext[0].u\"> "+item.data.author_flair_text+" </p><p><b>"+item.data.title+"</b> <p><a href=\"https://www.reddit.com"+link+"\">reddit.com"+item.data.permalink+"</a></p> </p><a href="+item.data.url+"><img src="+item.data.url+"><video src="+item.data.url+"></a> <div>"+reddetex+"</div></div><br><br><br><br>");
     });
         $("#images").append(pfosten).html();
 });
