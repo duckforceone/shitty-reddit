@@ -5,18 +5,63 @@
 <div id="images"></div>
   </center>
 
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="comments" class="commentDad"></div>
+  </div>
+
+</div>
+
 <style type="text/css">
-	
+	.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 	img {
 		width: 35%;
 		margin-right: 5px;
 		margin-bottom: 5px;
 	}
 
-.posts {
-  border-bottom: 5px solid lightgrey;
-  border-radius: 15px;
-}
+
+
+
 
 </style>
 
@@ -42,11 +87,40 @@ $.getJSON("https://www.reddit.com/r/"+subredditname+"/.json?limit=100", function
     text      = (item.data.selftext),
     reddetex      = converter.makeHtml(text);
         var link = (item.data.permalink);
-          pfosten += ("<div class=\"posts\"><p><i>Posted in "+item.data.subreddit_name_prefixed+" by u/"+item.data.author+" ("+item.data.distinguished+")</i> "+item.data.author_flair_text+" </p><h2><b>"+item.data.title+"</h2> <p><a href=\"https://www.reddit.com"+link+"\">reddit.com"+item.data.permalink+"</a></p> </p><a href="+item.data.url+"><img src="+item.data.url+"><video src="+item.data.url+"></a> <div>"+reddetex+"</div></div><br><br><br><br>");
+          pfosten += ("<div class=\"posts\"><div><i>Posted in "+item.data.subreddit_name_prefixed+" by u/"+item.data.author+" ("+item.data.distinguished+")</i> "+item.data.author_flair_text+" </div> <div><h2><b>"+item.data.title+"</h2></div> <div><a target=\"_blank\" href=\"https://www.reddit.com"+link+"\">reddit.com"+item.data.permalink+"</a></div> </div><div><a href="+item.data.url+"><img src="+item.data.url+"></a> </div><h3>"+reddetex+"</h3><br><br> <div><button onclick=\"getComments('"+link+"')\">Show Comments!</button></div> <br><br><br> <div id=\"\"></div> </div><br><br><br><br> ");
     });
         $("#images").append(pfosten).html();
 });
 
+function getComments(url) {
+	$('h4').remove()
+	var fullurl = "https://api.reddit.com"+url;
+	//alert(fullurl);
+	$.getJSON(fullurl, function(data) {
+		$.each(data[1].data.children, function(i, item) {
+    var comment = item.data.body
+    var author = item.data.author
+    var postcomment = '<h4 id=\"commentbody\">[Author] ' + author + '<br>' + comment + '</h4>'
+    $("#comments").append("<div id=\"cmts\">").html();
+    $("#comments").append(postcomment).html();
+    $("#comments").append("</div>").html();
+		});
 
+	});
 
+	var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+
+  modal.style.display = "block";
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+}
 </script>
