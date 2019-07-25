@@ -87,7 +87,7 @@ $.getJSON("https://www.reddit.com/r/"+subredditname+"/.json?limit=100", function
     text      = (item.data.selftext),
     reddetex      = converter.makeHtml(text);
         var link = (item.data.permalink);
-          pfosten += ("<div class=\"posts\"><div><i>Posted in "+item.data.subreddit_name_prefixed+" by u/"+item.data.author+" ("+item.data.distinguished+")</i> "+item.data.author_flair_text+" </div> <div><h2><b>"+item.data.title+"</h2></div> <div><a target=\"_blank\" href=\"https://www.reddit.com"+link+"\">reddit.com"+item.data.permalink+"</a></div> </div><div><a href="+item.data.url+"><img src="+item.data.url+"></a> </div><h3>"+reddetex+"</h3><br><br> <div><button onclick=\"getComments('"+link+"')\">Show Comments!</button></div> <br><br><br> <div id=\"\"></div> </div><br><br><br><br> ");
+          pfosten += ("<div class=\"posts\" style=\"border: 2px solid lightgrey; border-radius: 8px;\"><div><i>Posted in "+item.data.subreddit_name_prefixed+" by u/"+item.data.author+" ("+item.data.distinguished+")</i> "+item.data.author_flair_text+" </div> <div><h2><b>"+item.data.title+"</h2></div> <div><a target=\"_blank\" href=\"https://www.reddit.com"+link+"\">reddit.com"+item.data.permalink+"</a></div> </div><div><a href="+item.data.url+"><img src="+item.data.url+"></a> </div><h3>"+reddetex+"</h3><div><button onclick=\"getComments('"+link+"')\">Show Comments!</button></div> <br><br><br><p style=\"\"></p> <div id=\"\"></div> </div><br><br><br><br> ");
     });
         $("#images").append(pfosten).html();
 });
